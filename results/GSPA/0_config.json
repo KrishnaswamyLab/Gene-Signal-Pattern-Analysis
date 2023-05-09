@@ -1,0 +1,1 @@
+{"lr": 0.01, "dropout": 0.0, "epochs": 100, "weight_decay": 0.0, "patience": 50, "min_epochs": 50, "seed": 0, "walk_length": 80, "num_walks": 10, "task": "localization", "model": "GSPA", "dim": 16, "num_layers": 2, "bias": 1, "act": "relu", "num_classes": 2, "attention": true, "val_prop": 0.05, "test_prop": 0.1, "split_seed": 1234, "save_as": "0"}

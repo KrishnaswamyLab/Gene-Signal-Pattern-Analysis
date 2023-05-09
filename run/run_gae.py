@@ -128,9 +128,4 @@ def run_gae(G, args):
     A = scipy.sparse.coo_matrix(nx.adjacency_matrix(G))
     embedding = runGCN(A, n_features=data.shape[0], args=args)
     
-    if not os.path.exists(f'results/{args.model}/'):
-        os.makedirs(f'results/{args.model}')
-
-    np.save(f'results/{args.model}/{args.save_as}_{args.dataset}_embedding.npy', embedding)
-    with open(f'results/{args.model}/{args.save_as}_{args.dataset}_config.json', 'w') as f:
-        json.dump(vars(args), f)
+    return (embedding)

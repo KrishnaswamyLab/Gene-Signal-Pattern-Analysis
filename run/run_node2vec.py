@@ -13,4 +13,3 @@ def run_node2vec(G, args):
     embedding = model.wv.vectors
 
     return (embedding)
-

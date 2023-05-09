@@ -1,4 +1,5 @@
-import keras
+import os, keras
+import numpy as np
 from keras import layers
 
 def run_ae(data, args):
@@ -35,11 +36,9 @@ def run_ae(data, args):
                     shuffle=True,
                     callbacks=[callback])
 
-    data_ae = encoder(data).numpy()
+    embedding = encoder(data).numpy()
     
     if not os.path.exists(f'results/{args.model}/'):
         os.makedirs(f'results/{args.model}')
 
-    np.save(f'results/{args.model}/{args.save_as}_{args.dataset}_embedding.npy', embedding)
-    with open(f'results/{args.model}/{args.save_as}_{args.dataset}_config.json', 'w') as f:
-        json.dump(vars(args), f)
+    np.save(f'results/{args.model}/{args.save_as}_embedding.npy', embedding)
