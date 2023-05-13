@@ -8,7 +8,7 @@ def run_ae(data, args):
     
     # encoder
     input = keras.Input(shape=(data.shape[1]))
-    encoded = layers.Dense(args.dim * 2, activation=args.act, use_bias=args.bias)(input)
+    encoded = layers.Dense(args.dim * 4, activation=args.act, use_bias=args.bias)(input)
     for i in range(args.num_layers - 2):
         encoded = layers.Dense(args.dim * 2, activation=args.act, use_bias=args.bias)(encoded)
         if args.dropout > 0:
@@ -17,9 +17,9 @@ def run_ae(data, args):
     encoded = layers.Dense(args.dim, activation='linear', use_bias=args.bias)(encoded)
 
     # decoder
-    decoded = layers.Dense(args.dim * 2, activation=args.act,  use_bias=args.bias)(encoded)
     for i in range(args.num_layers - 2):
         decoded = layers.Dense(args.dim * 2, activation=args.act,  use_bias=args.bias)(decoded)
+    decoded = layers.Dense(args.dim * 4, activation=args.act,  use_bias=args.bias)(encoded)
     decoded = layers.Dense(data.shape[1], activation='linear', use_bias=args.bias)(decoded)
 
     # autoencoder

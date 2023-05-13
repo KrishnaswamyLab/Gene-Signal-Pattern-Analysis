@@ -45,6 +45,9 @@ def train(args):
         signals = np.load('./data/localization_signals.npz')['signals']
         signals = signals / np.linalg.norm(signals, axis=1).reshape(-1,1)
         
+    else:
+        sys.exit('Task not in [coexpression, localization]')
+        
     ## MODEL SETUP        
     if args.model == 'Signals':
         args.comparison = 'Signals'
@@ -130,7 +133,10 @@ def train(args):
 
         results['localization_score'] = calculate_localization(signals_with_uniform_embedding[-1], signals_with_uniform_embedding[:-1])
         
-    ## small test
+    else:
+        sys.exit('Model not in [Signals, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gcell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]')
+        
+    ## test output is correct dimensions
     assert(results['signal_embedding'].shape == (signals.shape[0], args.dim))
     assert(results['localization_score'].shape == (signals.shape[0],))
 

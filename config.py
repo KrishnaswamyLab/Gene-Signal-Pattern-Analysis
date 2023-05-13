@@ -2,11 +2,11 @@ import argparse
 
 config_args = {
     'training_config': {
-        'lr': (0.01, 'learning rate'),
+        'lr': (0.001, 'learning rate'),
         'dropout': (0.0, 'dropout probability'),
         'epochs': (100, 'maximum number of epochs to train for'),
         'weight-decay': (0., 'l2 regularization strength'),
-        'patience': (50, 'patience for early stopping'),
+        'patience': (10, 'patience for early stopping'),
         'min-epochs': (50, 'do not early stop before min-epochs'),
         'seed': (1234, 'seed for training'),
         'walk-length': (80, 'walk length for Node2Vec'),
@@ -15,18 +15,17 @@ config_args = {
         'verbose': (1, 'verbosity, of [0, 1, 2]'),
     },
     'model_config': {
-        'model': ('GSPA', 'which model to use, can be one of [Signals, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]'),
-        'dim': (16, 'embedding dimension'),
+        'model': ('GSPA', 'which model to use, can be one of [Signals, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gcell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]'),
+        'dim': (128, 'embedding dimension'),
         'num-layers': (2, 'number of hidden layers in encoder'),
         'bias': (1, 'whether to use bias (1) or not (0)'),
         'act': ('relu', 'which activation function to use of [relu, tanh, None]'),
-        'num-classes': (2, 'magnet link prediction class number'),
         'k_neighbors': (5, 'default number of neighbors k for kNN graph construction'),
         'device': ('cpu', 'Device for model'),
      },
     'data_config': {
-        'val-prop': (0.05, 'proportion of validation edges for link prediction'),
-        'test-prop': (0.1, 'proportion of test edges for link prediction'),
+        'val-prop': (0.05, 'proportion of validation'),
+        'test-prop': (0.1, 'proportion of test'),
         'split-seed': (1234, 'seed for data splits (train/test/val)'),
         'save-as': ('0', 'name for embedding iteration'),
     }
