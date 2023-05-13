@@ -12,15 +12,17 @@ config_args = {
         'walk-length': (80, 'walk length for Node2Vec'),
         'num-walks': (10, 'number of walks for Node2Vec'),
         'task': ('localization', 'task for paper, can be any of [coexpression, localization]'),
+        'verbose': (1, 'verbosity, of [0, 1, 2]'),
     },
     'model_config': {
-        'model': ('GSPA', 'which encoder to use, can be any of [Node2Vec, GAE, GSPA]'),
+        'model': ('GSPA', 'which model to use, can be one of [Signals, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]'),
         'dim': (16, 'embedding dimension'),
         'num-layers': (2, 'number of hidden layers in encoder'),
         'bias': (1, 'whether to use bias (1) or not (0)'),
-        'act': ('relu', 'which activation function to use [of relu, complexrelu (MagNet), tanh, or None]'),
+        'act': ('relu', 'which activation function to use of [relu, tanh, None]'),
         'num-classes': (2, 'magnet link prediction class number'),
-        'attention': (True, 'use graph attention layers for graph convolutions')
+        'k_neighbors': (5, 'default number of neighbors k for kNN graph construction'),
+        'device': ('cpu', 'Device for model'),
      },
     'data_config': {
         'val-prop': (0.05, 'proportion of validation edges for link prediction'),

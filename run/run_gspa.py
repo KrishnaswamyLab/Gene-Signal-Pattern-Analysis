@@ -1,6 +1,6 @@
 import numpy as np
 from tqdm import tqdm
-from gspa_helper import *
+from run.gspa_helper import *
 
 """
 Learn gene embeddings with diffusion wavelets.

@@ -68,7 +68,7 @@ def runGCN(coo, n_features, args, encoder=GCNEncoder):
                           test_data.edge_label_index[:, test_data.edge_label == 0])
     
     # Setup
-    device = torch.device('cuda:1')
+    device = args.device
     values = coo.data
     indices = np.vstack((coo.row, coo.col))
 
@@ -79,7 +79,7 @@ def runGCN(coo, n_features, args, encoder=GCNEncoder):
     transform = T.Compose([
                 T.ToDevice(device),
                 T.RandomLinkSplit(num_val=args.val_prop, num_test=args.test_prop,
-                                  is_undirected=args.symmetrize_adj, add_negative_train_samples=True)])
+                                  is_undirected=True, add_negative_train_samples=True)])
 
     data = Data(x=torch.eye(n_features),
                 edge_index=torch.sparse_coo_tensor(i, v, torch.Size(shape)).to_dense().nonzero().t().contiguous())
@@ -125,7 +125,7 @@ def run_gae(G, args):
 
     seed_everything(args.seed)
         
-    A = scipy.sparse.coo_matrix(nx.adjacency_matrix(G))
-    embedding = runGCN(A, n_features=data.shape[0], args=args)
+    A = scipy.sparse.coo_matrix(G.W)
+    embedding = runGCN(A, n_features=G.N, args=args)
     
     return (embedding)

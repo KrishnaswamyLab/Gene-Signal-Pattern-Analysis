@@ -34,11 +34,9 @@ def run_ae(data, args):
                     validation_split = args.val_prop,
                     epochs=args.epochs,
                     shuffle=True,
-                    callbacks=[callback])
+                    callbacks=[callback],
+                    verbose=args.verbose)
 
     embedding = encoder(data).numpy()
     
-    if not os.path.exists(f'results/{args.model}/'):
-        os.makedirs(f'results/{args.model}')
-
-    np.save(f'results/{args.model}/{args.save_as}_embedding.npy', embedding)
+    return (embedding)

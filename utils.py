@@ -2,27 +2,19 @@ import numpy as np
 from sklearn import decomposition
 from scipy.spatial.distance import cdist
 
-def svd(signals, random_state=42):
+def svd(signals):
     n_components = min(2048, signals.shape[0], signals.shape[1]) 
-    pc_op = decomposition.TruncatedSVD(n_components=n_components, random_state=42)
+    pc_op = decomposition.PCA(n_components=n_components)
     data_pc = pc_op.fit_transform(signals)
-
+    
+    # normalize before autoencoder
     data_pc_std = data_pc / np.std(data_pc[:, 0])
     
     return (data_pc_std)
 
-def learn_representation(signals, dictionary):
-    projection = np.dot(signals, dictionary)
-    projection_svd = svd(projection)
+def project(signals, cell_dictionary):
+    return(np.dot(signals, cell_dictionary))
 
-    return (projection_svd)
-
-def calculate_localization(signals, dictionary):
-    signals_projection = np.dot(signals, dictionary)
-    uniform_signal = np.ones((1,signals.shape[1]))
-    uniform_signal = uniform_signal / np.linalg.norm(uniform_signal, axis=1).reshape(-1,1)
-
-    uniform_projection = np.dot(uniform_signal, dictionary)
-    distance_to_uniform = cdist(uniform_projection, signals_projection)
-
-    return (distance_to_uniform)
+def calculate_localization(uniform, signals, metric='euclidean'):
+    uniform = uniform.reshape(1,-1)
+    return(cdist(uniform, signals, metric=metric).reshape(-1,))
