@@ -2,8 +2,8 @@ import os, keras
 import numpy as np
 from keras import layers
 
-def run_ae(data, seed=1234, act='relu', bias=1, dim=16, num_layers=2, dropout=0.0, lr=0.01, epochs=100, 
-           val_prop=0.05, weight_decay=0, patience=50):
+def run_ae(data, seed=1234, act='relu', bias=1, dim=128, num_layers=2, dropout=0.0, lr=0.001, epochs=100, 
+           val_prop=0.05, weight_decay=0, patience=10):
     
     keras.utils.set_random_seed(seed)
     

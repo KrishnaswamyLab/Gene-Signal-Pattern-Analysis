@@ -1,4 +1,4 @@
-import os
+import os, sys
 import magic, phate
 from config import parser
 import numpy as np
@@ -30,6 +30,7 @@ def train(args):
     uniform_signal = uniform_signal / np.linalg.norm(uniform_signal, axis=1).reshape(-1,1)
 
     print ('Build cellular graph...')
+    # consider moving to methods that use cellular graph (OT and Projection methods)
     phate_op = phate.PHATE(random_state=args.seed, use_pygsp=True, n_jobs=-1, verbose=args.verbose)
     phate_op.fit(data)
     G = phate_op.graph
@@ -55,7 +56,7 @@ def train(args):
         results['signal_embedding'] = run_ae(signal_reduced, args)
         results['localization_score'] = calculate_localization(uniform_signal, signals)
         
-    if args.model in ['DiffusionEMD', 'GFMMD']:
+    elif args.model in ['DiffusionEMD', 'GFMMD']:
         args.comparison = 'OT'
         signals_t = signals.T
         signal_prob = signals_t
@@ -98,7 +99,10 @@ def train(args):
             cell_dictionary = run_gae(G, args)
         elif args.model == 'MAGIC':
             # related to MAGIC; project gene signals onto diffusion operator
-            cell_dictionary = phate_op.diff_op
+            # use magic_op.diff_op because phate_op.diff_op uses landmarks; dims don't match
+            magic_op = magic.MAGIC()
+            magic_op.graph = G
+            cell_dictionary = magic_op.diff_op.todense()
             
         signals_projected = project(signals, cell_dictionary)
         signals_reduced = svd(signals_projected)
