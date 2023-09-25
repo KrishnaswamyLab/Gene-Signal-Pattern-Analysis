@@ -13,6 +13,7 @@ config_args = {
         'num-walks': (10, 'number of walks for Node2Vec'),
         'task': ('localization', 'task for paper, can be any of [coexpression, localization]'),
         'verbose': (1, 'verbosity, of [0, 1, 2]'),
+        'add-pseudotime': (0, 'whether to add time signal (1) or not (0)'),
     },
     'model_config': {
         'model': ('GSPA', 'which model to use, can be one of [Signals, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gcell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]'),
@@ -25,7 +26,7 @@ config_args = {
      },
     'data_config': {
         'val-prop': (0.05, 'proportion of validation'),
-        'test-prop': (0.1, 'proportion of test'),
+        'test-prop': (0.0, 'proportion of test'),
         'split-seed': (1234, 'seed for data splits (train/test/val)'),
         'save-as': ('0', 'name for embedding iteration'),
     }

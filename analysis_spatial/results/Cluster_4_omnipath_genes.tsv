@@ -1,0 +1,9 @@
+ERN1	HSPA5	post_translational
+HSPA5	ERN1	post_translational
+ERN1	XBP1	post_translational
+HERPUD1	HSPA5	post_translational
+PPIB	SDC1	post_translational
+SEC11C	RPN1	post_translational
+PRDM1	IRF4	transcriptional
+IRF4	AQP3	transcriptional
+IRF4	NKG7	transcriptional

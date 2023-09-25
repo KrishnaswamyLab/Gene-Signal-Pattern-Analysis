@@ -15,6 +15,6 @@ def svd(signals):
 def project(signals, cell_dictionary):
     return(np.dot(signals, cell_dictionary))
 
-def calculate_localization(uniform, signals, metric='euclidean'):
-    uniform = uniform.reshape(1,-1)
-    return(cdist(uniform, signals, metric=metric).reshape(-1,))
+def calculate_localization(x, signals, metric='euclidean'):
+    x = x.reshape(1,-1)
+    return(cdist(x, signals, metric=metric).reshape(-1,))

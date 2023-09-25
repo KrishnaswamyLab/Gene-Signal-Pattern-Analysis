@@ -12,6 +12,12 @@ class Graph_Fourier_MMD:
             
     def feature_map(self, signals, method = 'chebyshev', filter_name='default'):
         
+        n = signals.shape[1]
+
+        if n == 1:
+            raise ValueError("Need more than two signals to compare")
+            return False 
+        
         signals = np.hstack([signals[:,i].reshape(-1,1)/np.sum(signals[:,i]) for i in range(signals.shape[1])])
         
         
@@ -35,18 +41,10 @@ class Graph_Fourier_MMD:
             
         return ret.reshape(-1, signals.shape[1])
 
-    def locality(self, signals, method='chebyshev', filter_name='default'):
-        transformed = self.feature_map(signals, method, filter_name)
-        return [np.linalg.norm(t) for t in transformed.T]
+    def locality(self, transformed):
+        return np.array([np.linalg.norm(t) for t in transformed.T])
 
-    def distance(self, signals, method='chebyshev', filter_name='default'):
-        n = signals.shape[1]
-
-        if n == 1:
-            raise ValueError("Need more than two signals to compare")
-            return False 
-
-        transformed = self.feature_map(signals, method, filter_name)
+    def distance(self, transformed):
         distance_array = scipy.spatial.distance.pdist(transformed.T)
         distances = scipy.spatial.distance.squareform(distance_array)
 

@@ -8,9 +8,13 @@ Learn gene embeddings with diffusion wavelets.
 dictionary, wavelet_sizes = calculate_wavelet_dictionary(G)
 """
 
-def calculate_wavelet_dictionary(G, J=-1, use_reduced=True, epsilon=1e-3, power=2):
-    P = calculate_diffusion_operator(G)
-    N = G.N
+def calculate_wavelet_dictionary(G=None, P=None, J=-1, use_reduced=True, epsilon=1e-3, power=2):
+    if P is None and G is None:
+        sys.exit('Input graph or diffusion operator')
+    elif P is None:
+        P = calculate_diffusion_operator(G)
+        
+    N = P.shape[0]
     size_of_wavelets_per_scale = []
     
     if J == -1:

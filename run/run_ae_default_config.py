@@ -26,7 +26,7 @@ def run_ae(data, seed=1234, act='relu', bias=1, dim=128, num_layers=2, dropout=0
     # autoencoder
     autoencoder = keras.Model(input, decoded)
     encoder = keras.Model(input, encoded)
-    autoencoder.compile(optimizer=keras.optimizers.Adam(learning_rate=lr, decay=weight_decay), 
+    autoencoder.compile(optimizer=keras.optimizers.legacy.Adam(learning_rate=lr, decay=weight_decay), 
                         loss='mean_squared_error')
 
     callback = keras.callbacks.EarlyStopping(monitor="val_loss", patience=patience)

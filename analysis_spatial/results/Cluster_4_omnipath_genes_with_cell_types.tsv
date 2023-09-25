@@ -1,0 +1,9 @@
+ERN1	HSPA5	post_translational	B_plasma,T_CD4+,T_CD4+_TfH,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC	B_plasma,T_CD4+,T_CD4+_TfH,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC,Macrophages_M2,Mast,Endo
+HSPA5	ERN1	post_translational	B_plasma,T_CD4+,T_CD4+_TfH,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC,Macrophages_M2,Mast,Endo	B_plasma,T_CD4+,T_CD4+_TfH,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC
+ERN1	XBP1	post_translational	B_plasma,T_CD4+,T_CD4+_TfH,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC	B_GC_prePB,B_plasma,T_CD4+,T_CD4+_TfH,T_CD4+_naive,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC,Mast
+HERPUD1	HSPA5	post_translational	B_IFN,B_naive,B_activated,B_GC_LZ,B_GC_DZ,B_GC_prePB,B_plasma,B_mem,ILC,DC_pDC	B_plasma,T_CD4+,T_CD4+_TfH,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,ILC,DC_pDC,Macrophages_M2,Mast,Endo
+PPIB	SDC1	post_translational	B_GC_prePB,B_plasma,T_CD4+,T_CD4+_TfH_GC,T_TfR,T_TIM3+,T_CD8+_cytotoxic,NKT,NK,ILC,DC_pDC,DC_cDC1,DC_cDC2,Macrophages_M1,Mast,Endo,VSMC	B_plasma
+SEC11C	RPN1	post_translational	B_GC_prePB,B_plasma,T_CD4+_TfH_GC,T_TfR,DC_pDC	B_plasma,T_CD4+,T_CD4+_TfH_GC,T_TfR,T_CD8+_cytotoxic,NKT,DC_pDC,Monocytes,Macrophages_M1,Macrophages_M2,Mast,Endo,VSMC
+PRDM1	IRF4	transcriptional	B_GC_prePB,B_plasma,T_CD4+_TfH,T_Treg,T_TfR,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK	B_activated,B_preGC,B_GC_prePB,B_plasma,B_mem,T_TfR,T_TIM3+,DC_pDC,DC_CCR7+
+IRF4	AQP3	transcriptional	B_activated,B_preGC,B_GC_prePB,B_plasma,B_mem,T_TfR,T_TIM3+,DC_pDC,DC_CCR7+	T_CD4+,T_CD4+_TfH,T_CD4+_TfH_GC,T_Treg,T_TfR,T_TIM3+,T_CD4+_naive,T_CD8+_naive,T_CD8+_CD161+,NKT,ILC
+IRF4	NKG7	transcriptional	B_activated,B_preGC,B_GC_prePB,B_plasma,B_mem,T_TfR,T_TIM3+,DC_pDC,DC_CCR7+	T_TIM3+,T_CD8+_cytotoxic,T_CD8+_CD161+,NKT,NK,Macrophages_M1
