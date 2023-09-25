@@ -1,2 +1,7 @@
+for_BLIS/*
+unpublished_analyses/*
 *__pycache__*
+*.ipynb_checkpoints*
 splatter_simulated_data.npz
+*.h5ad
+*data*
