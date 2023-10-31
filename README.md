@@ -4,6 +4,6 @@ Considering genes as signals on a cell-cell graph allows us to map their express
 
 To train GSPA or any comparisons:
 ```
-python train.py --model GSPA --task localization --save-as 0
+python train.py --model GSPA_QR --task localization --save-as 0 --seed 0
 ```
 ![](Overview.png)

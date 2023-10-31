@@ -64,8 +64,8 @@ def runGCN(coo, n_features, args, encoder=GCNEncoder):
         model.eval()
         with torch.no_grad():
             z = model.encode(train_data.x, train_data.edge_label_index[:, train_data.edge_label == 1])
-        return model.test(z, test_data.edge_label_index[:, test_data.edge_label == 1],
-                          test_data.edge_label_index[:, test_data.edge_label == 0])
+        return model.test(z, val_data.edge_label_index[:, val_data.edge_label == 1],
+                          val_data.edge_label_index[:, val_data.edge_label == 0])
     
     # Setup
     device = args.device

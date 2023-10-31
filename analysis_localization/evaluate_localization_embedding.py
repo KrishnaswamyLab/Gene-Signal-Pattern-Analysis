@@ -6,7 +6,7 @@ from sklearn import linear_model
 from sklearn.model_selection import RepeatedKFold
 
 model = sys.argv[1]
-dataset = '2_branches'
+dataset = sys.argv[2]
 
 if dataset == '2_branches':
     datafile = 'splatter_simulated_data_2_branches.npz'
@@ -30,7 +30,8 @@ labels_y = np.load(f'../data/localization_signals{extension}.npz')['spread']
 
 # get embeddings
 localization_results = {}
-for run in glob.glob(f'../results/localization/{model}/*{extension}.npz'):
+for id in [7, 8, 9]:
+    run = f'../results/localization/{model}/{id}_results{extension}.npz'
     res = np.load(run, allow_pickle=True)
     name = res['config'][()]['save_as']
     localization_results[name] = res['signal_embedding']
@@ -38,7 +39,7 @@ for run in glob.glob(f'../results/localization/{model}/*{extension}.npz'):
 # set up results output
 if not os.path.exists(f'./embedding_results/{model}/'):
     os.makedirs(f'./embedding_results/{model}')
-f = open(f'./embedding_results/{model}/spearmanr{extension}.txt', 'a')
+f = open(f'./embedding_results/{model}/spearmanr{extension}_789.txt', 'a')
 
 for (name, embedding) in localization_results.items():
     kf = RepeatedKFold(n_splits=2, n_repeats=10)

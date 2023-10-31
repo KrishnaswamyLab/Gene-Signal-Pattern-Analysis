@@ -6,11 +6,8 @@ from sklearn import linear_model
 from sklearn.model_selection import RepeatedKFold
 
 model = sys.argv[1]
-dataset = '3_branches'
+dataset = sys.argv[2]
 
-if dataset == 'sparse_branches':
-    datafile = 'splatter_simulated_data_sparse_branches.npz'
-    extension = '_sparse_branches'
 if dataset == '2_branches':
     datafile = 'splatter_simulated_data_2_branches.npz'
     extension = '_2_branches'
@@ -33,7 +30,8 @@ true_lib_size = true_counts.T.sum(axis=1)
 # get coexpression embeddings
 coexpression_results = {}
 
-for run in glob.glob(f'../results/coexpression/{model}/*{extension}.npz'):
+for id in [7, 8, 9]:
+    run = f'../results/coexpression/{model}/{id}_results{extension}.npz'
     res = np.load(run, allow_pickle=True)
     name = res['config'][()]['save_as']
     coexpression_results[name] = res['signal_embedding']
@@ -41,7 +39,7 @@ for run in glob.glob(f'../results/coexpression/{model}/*{extension}.npz'):
 # set up results output
 if not os.path.exists(f'./results/{model}/'):
     os.makedirs(f'./results/{model}')
-f = open(f"results/{model}/spearmanr{extension}.txt", "a")
+f = open(f"results/{model}/spearmanr{extension}_789.txt", "a")
 
 print ('Stratify Spearman correlation...')
 spearman_res = spearmanr(true_counts)

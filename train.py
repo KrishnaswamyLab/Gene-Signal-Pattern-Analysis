@@ -14,6 +14,7 @@ from utils import svd, project, calculate_localization
 from run.run_node2vec import run_node2vec
 from run.run_gae import run_gae
 from run.run_ae import run_ae
+from run.run_eigenscore import run_eigenscore
 from run import run_gfmmd 
 
 def train(args):
@@ -56,6 +57,13 @@ def train(args):
         results['signal_embedding'] = run_ae(signal_reduced, args)
         results['localization_score'] = calculate_localization(uniform_signal, signals)
         
+    elif args.model == 'Eigenscore':
+        args.comparison = 'Eigenscore'
+        signal_representation = run_eigenscore(G, signals, args)
+        signal_reduced = svd(signal_representation)
+        results['signal_embedding'] = run_ae(signal_reduced, args)
+        results['localization_score'] = np.linalg.norm(signal_representation, axis=1)
+        
     elif args.model in ['DiffusionEMD', 'GFMMD']:
         args.comparison = 'OT'
         signals_t = signals.T
@@ -73,10 +81,9 @@ def train(args):
             results['localization_score'] = calculate_localization(uniform_representation, signal_representation, metric='cityblock')
         elif args.model == 'GFMMD':
             gfmmd_op = run_gfmmd.Graph_Fourier_MMD(G)
-            signal_representation = gfmmd_op.distance(np.hstack((signal_prob, uniform_prob)))
-            uniform_representation = signal_representation[-1]
-            signal_representation = signal_representation[:-1]
-            results['localization_score'] = gfmmd_op.locality(signal_prob)
+            signal_representation = gfmmd_op.feature_map(signal_prob)
+            results['localization_score'] = gfmmd_op.locality(signal_representation)
+            signal_representation = signal_representation.T
 
         signal_reduced = svd(signal_representation)
         results['signal_embedding'] = run_ae(signal_reduced, args)
@@ -138,7 +145,7 @@ def train(args):
         results['localization_score'] = calculate_localization(signals_with_uniform_embedding[-1], signals_with_uniform_embedding[:-1])
         
     else:
-        sys.exit('Model not in [Signals, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gcell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]')
+        sys.exit('Model not in [Signals, Eigenscore, DiffusionEMD, GFMMD, GSPA, GSPA_QR, MAGIC, Node2Vec_Gcell, GAE_noatt_Gcell, GAE_att_Gcell, Node2Vec_Ggene, GAE_noatt_Ggene, GAE_att_Ggene]')
         
     ## test output is correct dimensions
     assert(results['signal_embedding'].shape == (signals.shape[0], args.dim))

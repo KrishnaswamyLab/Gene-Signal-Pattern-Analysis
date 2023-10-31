@@ -25,7 +25,7 @@ def run_ae(data, args):
     # autoencoder
     autoencoder = keras.Model(input, decoded)
     encoder = keras.Model(input, encoded)
-    autoencoder.compile(optimizer=keras.optimizers.Adam(learning_rate=args.lr, decay=args.weight_decay), 
+    autoencoder.compile(optimizer=keras.optimizers.legacy.Adam(learning_rate=args.lr, decay=args.weight_decay), 
                         loss='mean_squared_error')
 
     callback = keras.callbacks.EarlyStopping(monitor="val_loss", patience=args.patience)
