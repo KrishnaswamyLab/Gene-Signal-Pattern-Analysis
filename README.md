@@ -2,8 +2,6 @@
 
 Considering genes as signals on a cell-cell graph allows us to map their expression patterns. This enables complex analyses, including gene cluster analysis, cell-cell communication, and patient manifold learning from gene-gene graphs.
 
-To train GSPA or any comparisons:
-```
-python train.py --model GSPA_QR --task localization --save-as 0 --seed 0
-```
+To run GSPA, see example notebook at `0.0_example_notebook.ipynb`.
+
 ![](Overview.png)
