@@ -1,0 +1,9 @@
+graphtools>=1.5.0
+tensorflow>=2.6.0
+multiscale_phate==0.0
+numpy>=1.14.0
+scikit_learn
+scipy>=1.1.0
+tqdm
+scanpy
+phate
