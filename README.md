@@ -41,5 +41,6 @@ The following have been tested: Python 3.6.18 (graphtools 1.5.3, tensorflow 2.6.
     gene_ae, gene_pc = gspa_op.get_gene_embeddings(gene_signals)
     gene_localization = gspa_op.calculate_localization()
 ```
-
 See `GSPA_example.ipynb` at [GitHub](https://github.com/KrishnaswamyLab/Gene-Signal-Pattern-Analysis) for test run on simulated single-cell data.
+
+![](Overview.png)
