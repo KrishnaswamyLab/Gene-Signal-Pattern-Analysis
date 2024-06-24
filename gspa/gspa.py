@@ -151,6 +151,7 @@ class GSPA:
 
         self.condensation_groupings = None
         self.wavelet_dictionary = None
+        self.wavelet_sizes = None
         self.signals_projected = None
 
         _logger.set_level(self.verbose)
@@ -176,7 +177,7 @@ class GSPA:
             self.graph = graphtools.Graph(data, n_pca=100, random_state=self.random_state, verbose=self.verbose, use_pygsp=True)
         else:
             _logger.log_info(f"bc_sample_idx used for batch correction")
-            self.graph = graphtools.Graph(data, n_pca=100, sample_idx=self.bc_sample_idx,
+            self.graph = graphtools.Graph(data, n_pca=100, sample_idx=self.bc_sample_idx, kernel_symm='mnn',
                                  theta=self.bc_theta, random_state=self.random_state, verbose=self.verbose, use_pygsp=True)
         
     def build_diffusion_operator(self):
@@ -217,7 +218,7 @@ class GSPA:
             
             if Psi_j_tilde.shape[1] == 0: 
                 _logger.log_info(f"Wavelets calculated; J = 1")
-                return (wavelets.flatten(wavelet_dictionary, wavelet_sizes))
+                self.wavelet_dictionary, self.wavelet_sizes = (wavelets.flatten(wavelet_dictionary, wavelet_sizes))
     
             Psi_j_tilde = wavelets.normalize(Psi_j_tilde)
             wavelet_sizes.append(Psi_j_tilde.shape[1])
@@ -230,7 +231,7 @@ class GSPA:
                 Psi_j_tilde = wavelets.column_subset(Psi_j, epsilon=self.qr_epsilon)
                 if Psi_j_tilde.shape[1] == 0: 
                     _logger.log_info("Wavelets calculated; J = %s" %i)
-                    return (wavelets.flatten(wavelet_dictionary, wavelet_sizes))
+                    self.wavelet_dictionary, self.wavelet_sizes = (wavelets.flatten(wavelet_dictionary, wavelet_sizes))
     
                 Psi_j_tilde = wavelets.normalize(Psi_j_tilde)
     
@@ -273,8 +274,8 @@ class GSPA:
             signals = graphs.aggregate_signals_over_condensed_nodes(signals.T, self.condensation_groupings).T
         
         self.signals_projected = embedding.project(signals, self.wavelet_dictionary)
-        signals_pc = embedding.svd(self.signals_projected, n_components=self.pc_dim)
-        signals_ae = embedding.run_ae(signals_pc, random_state=self.random_state, act=self.activation, bias=self.bias,
+        signals_pc = embedding.svd(self.signals_projected, n_components=self.pc_dim, random_state=self.random_state)
+        signals_ae = embedding.run_ae(signals_pc, verbose=self.verbose, random_state=self.random_state, act=self.activation, bias=self.bias,
                             dim=self.embedding_dim, num_layers=self.num_layers, dropout=self.dropout, lr=self.lr,
                             epochs=self.epochs, val_prop=self.val_prop, weight_decay=self.weight_decay, patience=self.patience)
         
