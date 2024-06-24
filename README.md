@@ -41,6 +41,6 @@ gene_signals = data.T # embed all measured genes
 gene_ae, gene_pc = gspa_op.get_gene_embeddings(gene_signals)
 gene_localization = gspa_op.calculate_localization()
 ```
-See `GSPA_example.ipynb` at [GitHub](https://github.com/KrishnaswamyLab/Gene-Signal-Pattern-Analysis) for test run on simulated single-cell data.
+See `GSPA_example.ipynb` [above](https://github.com/KrishnaswamyLab/Gene-Signal-Pattern-Analysis) for test run on simulated single-cell data. More notebooks to generate paper figures available at [https://github.com/KrishnaswamyLab/GSPA-manuscript-analyses](https://github.com/KrishnaswamyLab/GSPA-manuscript-analyses).
 
 ![](Overview.png)
