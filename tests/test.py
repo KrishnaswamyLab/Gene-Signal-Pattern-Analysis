@@ -191,7 +191,5 @@ class TestGSPA(unittest.TestCase):
         out = self.condensation.calculate_cell_type_specificity(cell_type_assignments=self.cell_type_assignments, cell_type=self.cell_type, signals=self.test_data.T[:20])
         self.assertEqual(out.shape[0], 20)
         
-
-
 if __name__ == '__main__':
     unittest.main()

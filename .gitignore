@@ -1,0 +1,6 @@
+.ipynb_checkpoints/
+__pycache__/
+dist/
+gspa.egg-info/
+gspa/.ipynb_checkpoints/
+gspa/__pycache__/
