@@ -4,8 +4,10 @@ import keras
 import numpy as np
 
 def project(signals, cell_dictionary):
-    signals = signals / np.linalg.norm(signals, axis=1).reshape(-1,1)
-    return(np.dot(signals, cell_dictionary))
+    norms = np.linalg.norm(signals, axis=1).reshape(-1, 1)
+    norms[norms == 0] = 1  # Avoid division by zero by setting zero norms to one
+    signals = signals / norms
+    return np.dot(signals, cell_dictionary)
 
 def svd(signals, random_state=1234, n_components=2048):
     n_components = min(n_components, signals.shape[0], signals.shape[1]) 
