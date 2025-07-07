@@ -27,7 +27,7 @@ def run_ae(data, random_state=1234, act='relu', bias=1, dim=128, num_layers=2, d
         tf.random.set_seed(random_state) # unstable for TF > 2.7
     
     # encoder
-    input = keras.Input(shape=(data.shape[1]))
+    input = keras.Input(shape=(data.shape[1], )) 
     encoded = keras.layers.Dense(dim * 2, activation=act, use_bias=bias)(input)
     if dropout > 0:
             encoded = keras.layers.Dropout(dropout)(encoded)
